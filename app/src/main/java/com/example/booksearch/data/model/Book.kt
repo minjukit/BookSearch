@@ -11,7 +11,7 @@ data class Book(
     @field:Json(name = "contents")
     val contents: String,
     @field:Json(name = "datetime")
-    val datetime: String,
+    val datetime: String?,
     @field:Json(name = "isbn")
     val isbn: String,
     @field:Json(name = "price")

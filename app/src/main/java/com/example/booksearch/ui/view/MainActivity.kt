@@ -2,11 +2,15 @@ package com.example.booksearch.ui.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.booksearch.R
+import com.example.booksearch.data.repository.BookSearchRepositoryImpl
 import com.example.booksearch.databinding.ActivityMainBinding
+import com.example.booksearch.ui.viewModel.BSViewModelProviderFactory
+import com.example.booksearch.ui.viewModel.BookSearchViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     lateinit var navController: NavController
+    lateinit var bookViewModel: BookSearchViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +30,16 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNavView.setupWithNavController(navController) //id 자동 매핑해줌
+
+        //viewModel
+        val bookRepostoryImpl = BookSearchRepositoryImpl()
+        val factory = BSViewModelProviderFactory(bookRepostoryImpl)
+        //ViewModel프로바이저에게 owner와 factory지정
+        bookViewModel = ViewModelProvider(
+            this,
+            factory
+        )[BookSearchViewModel::class.java] //run-time에 프로그램에서 클래스 알도록
+        
 
     }
 

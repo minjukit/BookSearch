@@ -20,7 +20,7 @@ object RetrofitInstance { //singleton
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create()) //DTO 변환 모시
-            .client(okHttpClient) // Logcat에서 패킷내용을 모니터링할 수 있도록
+            //.client(okHttpClient) // Logcat에서 패킷내용을 모니터링할 수 있도록
             .baseUrl(BASE_URL)
             .build()
     }

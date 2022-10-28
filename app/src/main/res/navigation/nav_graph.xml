@@ -9,7 +9,12 @@
         android:id="@+id/searchFragment"
         android:name="com.example.booksearch.ui.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.booksearch.ui.view.FavoriteFragment"
@@ -20,5 +25,10 @@
         android:name="com.example.booksearch.ui.view.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.example.booksearch.ui.view.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view" />
 
 </navigation>

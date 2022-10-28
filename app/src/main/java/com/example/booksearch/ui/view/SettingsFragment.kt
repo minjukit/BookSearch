@@ -14,6 +14,7 @@ class SettingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -23,6 +24,12 @@ class SettingsFragment : Fragment() {
     ): View? {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
+
     }
 
     override fun onDestroyView() {

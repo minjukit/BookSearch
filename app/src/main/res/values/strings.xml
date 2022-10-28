@@ -5,4 +5,5 @@
     <string name="search">책 검색하기</string>
     <string name="favorite">My 저장 책</string>
     <string name="Setting">설정</string>
+    <string name="searchHint">검색할 책의 제목을 입력하세요</string>
 </resources>

@@ -29,6 +29,10 @@
         android:id="@+id/webViewFragment"
         android:name="com.example.booksearch.ui.view.WebViewFragment"
         android:label="fragment_web_view"
-        tools:layout="@layout/fragment_web_view" />
+        tools:layout="@layout/fragment_web_view">
+        <action
+            android:id="@+id/action_webViewFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
 
 </navigation>

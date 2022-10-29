@@ -29,8 +29,13 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-        binding.bottomNavView.setupWithNavController(navController) //id 자동 매핑해줌
-
+        binding.bottomNavView.apply {
+            setupWithNavController(navController) //id 자동 매핑해줌
+            isItemHorizontalTranslationEnabled
+        }
+//
+//        binding.bottomNavView.setupWithNavController(navController)
+//        binding.bottomNavView.isItemHorizontalTranslationEnabled
         //viewModel
         val bookRepostoryImpl = BookSearchRepositoryImpl()
         val factory = BSViewModelProviderFactory(bookRepostoryImpl)
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             this,
             factory
         )[BookSearchViewModel::class.java] //run-time에 프로그램에서 클래스 알도록
-        
+
 
     }
 

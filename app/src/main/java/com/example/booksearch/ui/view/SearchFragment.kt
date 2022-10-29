@@ -9,8 +9,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.booksearch.R
@@ -27,12 +25,12 @@ class SearchFragment : Fragment() {
     private lateinit var bsViewModel: BookSearchViewModel
     private lateinit var bsAdapter: BookSearchAdapter
 
-    private lateinit var navHostFragment: NavHostFragment
-    private lateinit var navController: NavController
+    private var webFrag: Fragment? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -41,13 +39,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-
-/*
-        navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-*/
-
 
         return binding.root
     }
@@ -69,39 +60,23 @@ class SearchFragment : Fragment() {
         bsAdapter.itemClick = object : BookSearchAdapter.ItemClick {
             override fun onClick(view: View, position: Int, url: String) {
 
+
+                //WebViewFragment에 url 전달
+
+                webFrag = WebViewFragment()
                 setFragmentResult("requestKey", bundleOf("bundleKey" to url))
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment, WebViewFragment())
-                    .addToBackStack(null) //backbtn -> searchFragment
-                    .commit()
+                    .add(R.id.nav_host_fragment, WebViewFragment())
+                    .addToBackStack(null)
+                    .commit();
+
+                //.replace(R.id.nav_host_fragment, WebViewFragment())
+                //.addToBackStack(null) //backbtn -> searchFragment
+                //.commit()
+
 
             }
-
         }
-
-
-/*
-        bsAdapter.setOnItemClickListener(object : BookSearchAdapter.OnItemClickListener {
-            override fun onItemClick(v: View, data: String, pos: Int) {
-                Log.d("itemclick", "hih")
-                val url = data
-                setFragmentResult("requestKey", bundleOf("bundleKey" to url))
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.webViewFragment, WebViewFragment())
-                    .commit()
-
-                /*navigation으로 data전달..ing
-                val action = WebViewFragment.passAToB(data)
-                findNavController().navigate(R.id.action_searchFragment_to_webViewFragment)
-                */
-                Log.d("itemurl", "클릭$url")
-
-            }
-
-        })
-*/
-
-
     }
 
     private fun setUpRecyclerView() {

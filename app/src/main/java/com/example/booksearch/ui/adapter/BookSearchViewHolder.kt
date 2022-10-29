@@ -1,6 +1,5 @@
 package com.example.booksearch.ui.adapter
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -9,15 +8,11 @@ import com.example.booksearch.databinding.ItemBookPreviewBinding
 
 class BookSearchViewHolder
     (
-    private var binding: ItemBookPreviewBinding
+    private var binding: ItemBookPreviewBinding, public var url: String
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    companion object {
-        lateinit var url: String
-    }
-
-
     fun bind(book: Book) {
+
         val title = book.title
         val author = book.authors.toString().removeSurrounding("[", "]") //저자 delimiter 지우기
         val publisher = book.publisher
@@ -36,37 +31,19 @@ class BookSearchViewHolder
             binding.bookDate.text = date
             binding.bookUrl.text = url
         }
-
-/*
-        //아이템 클릭리스너
-        itemView.setOnClickListener {
-            object : View.OnClickListener {
-                override fun onClick(v: View?) {
-
-                    val pos = adapterPosition
-                    Log.d("itemposition", pos.toString())
-
-                    if (pos != RecyclerView.NO_POSITION) {
-                        itemClickListener.onItemClick(itemView, url, pos)
-                    }
-                }
-
-            }
-        }
-
- */
-
     }
 
     init {
         this.binding = binding
 
         //item Click Listener
+        /*
         itemView.setOnClickListener(View.OnClickListener {
             val pos = adapterPosition
-            Log.d("click", pos.toString() + " : click!")
+            Log.d("clickurl", pos.toString() + url)
         })
-
+        */
+        binding.bookUrl.visibility = View.INVISIBLE
     }
 
 }

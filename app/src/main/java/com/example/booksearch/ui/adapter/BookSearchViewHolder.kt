@@ -17,6 +17,7 @@ class BookSearchViewHolder
         val author = book.authors.toString().removeSurrounding("[", "]") //저자 delimiter 지우기
         val publisher = book.publisher
         val date = book.datetime?.substring(0, 10) ?: "" //null이면 ""
+        val sale_price = book.salePrice.toString()
         url = book.url
 
         itemView.apply {
@@ -29,6 +30,7 @@ class BookSearchViewHolder
             binding.bookTitle.text = title
             binding.bookAuthor.text = "$author | $publisher" //저자 | 출판사 형식
             binding.bookDate.text = date
+            binding.bookPrice.text = "${sale_price}원"
             binding.bookUrl.text = url
         }
     }

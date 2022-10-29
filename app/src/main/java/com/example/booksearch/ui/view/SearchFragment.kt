@@ -59,10 +59,8 @@ class SearchFragment : Fragment() {
 
         bsAdapter.itemClick = object : BookSearchAdapter.ItemClick {
             override fun onClick(view: View, position: Int, url: String) {
-
-
+                
                 //WebViewFragment에 url 전달
-
                 webFrag = WebViewFragment()
                 setFragmentResult("requestKey", bundleOf("bundleKey" to url))
                 parentFragmentManager.beginTransaction()

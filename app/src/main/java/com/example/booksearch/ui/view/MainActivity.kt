@@ -38,7 +38,8 @@ class MainActivity : AppCompatActivity() {
 //        binding.bottomNavView.isItemHorizontalTranslationEnabled
         //viewModel
         val bookRepostoryImpl = BookSearchRepositoryImpl()
-        val factory = BSViewModelProviderFactory(bookRepostoryImpl)
+        //Impl & owner 지정
+        val factory = BSViewModelProviderFactory(bookRepostoryImpl, this)
         //ViewModel프로바이저에게 owner와 factory지정
         bookViewModel = ViewModelProvider(
             this,

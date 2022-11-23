@@ -1,15 +1,15 @@
 package com.example.booksearch.ui.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.booksearch.data.model.BookSearchResponse
 import com.example.booksearch.data.repository.BookSearchRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class BookSearchViewModel(private val bookSearchRepository: BookSearchRepository) : ViewModel() {
+class BookSearchViewModel(
+    private val bookSearchRepository: BookSearchRepository,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
 
     //Livedata Response
@@ -28,4 +28,18 @@ class BookSearchViewModel(private val bookSearchRepository: BookSearchRepository
         }
     }
 
+    //savedState
+    var query = String()
+        set(value) { //Backing Fields: setter 재정의
+            field = value
+            savedStateHandle.set(SAVE_STATE_KEY, value); //savedStateHandle은 map형태로 뷰모델에 저장
+        }
+
+    init { // Viewmodel 초기화시 savedStateHandle에서 get
+        query = savedStateHandle.get<String>(SAVE_STATE_KEY) ?: ""
+    }
+
+    companion object {
+        private const val SAVE_STATE_KEY = "query";
+    }
 }

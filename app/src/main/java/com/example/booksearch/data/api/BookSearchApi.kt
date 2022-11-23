@@ -8,7 +8,6 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface BookSearchApi {
-
     @Headers("Authorization: KakaoAK ${BOOK_API_KEY}")
     @GET("v3/search/book")
     suspend fun searchBooks(
@@ -17,5 +16,4 @@ interface BookSearchApi {
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Response<BookSearchResponse>
-
 }

@@ -16,5 +16,4 @@ class BookSearchRepositoryImpl : BookSearchRepository {
         return RetrofitInstance.api.searchBooks(query, sort, page, size) //api실행하여 반환값 4개 받기
     }
 
-
 }

@@ -1,6 +1,7 @@
 package com.example.booksearch.ui.view
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +60,7 @@ class SearchFragment : Fragment() {
 
         bsAdapter.itemClick = object : BookSearchAdapter.ItemClick {
             override fun onClick(view: View, position: Int, url: String) {
-                
+
                 //WebViewFragment에 url 전달
                 webFrag = WebViewFragment()
                 setFragmentResult("requestKey", bundleOf("bundleKey" to url))
@@ -94,6 +95,9 @@ class SearchFragment : Fragment() {
     private fun searchBooks() {
         var startTime = System.currentTimeMillis()
 
+        //editText savedStateHandle에서 가져오기
+        binding.editTextBook.text = Editable.Factory.getInstance().newEditable(bsViewModel.query)
+
         binding.editTextBook.addTextChangedListener {
             var endTime = System.currentTimeMillis()
             if (endTime >= startTime + 100L) {
@@ -101,6 +105,7 @@ class SearchFragment : Fragment() {
                     val query = it.toString().trim()
                     if (query.isNotEmpty()) {
                         bsViewModel.searchBooks(query) //api 호출
+                        bsViewModel.query = query
                     }
                 }
             }

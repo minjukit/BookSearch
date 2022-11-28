@@ -1,6 +1,5 @@
 package com.example.booksearch.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,16 +27,25 @@ class BookSearchAdapter : ListAdapter<Book, BookSearchViewHolder>(BookDiffCallBa
         val book = currentList[position]
         holder.bind(book)
 
-
         //onClickListener
+        /*
         if (itemClick != null) {
             holder?.itemView.setOnClickListener(View.OnClickListener {
                 itemClick?.onClick(it, position, holder.url)
                 Log.d("clicktest", "${position.toString()}    ${holder.url}")
             })
+        }*/
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let { it(book) }
         }
     }
-    
+
+    private var onItemClickListener: ((Book) -> Unit)? = null
+    fun setOnItemClickListener(listner: (Book) -> Unit) {
+        onItemClickListener = listner
+    }
+
     companion object {
         //DiffUtil: 어댑터에서 현재 데이터 리스트와 교체될 데이터 리스트를 비교하여 무엇이 바뀌었는지 알아내는 클래스
         private val BookDiffCallBack = object : DiffUtil.ItemCallback<Book>() {

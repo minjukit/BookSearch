@@ -1,13 +1,12 @@
 package com.example.booksearch.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.fragment.navArgs
 import com.example.booksearch.databinding.FragmentWebViewBinding
 
 class WebViewFragment : Fragment() {
@@ -16,6 +15,8 @@ class WebViewFragment : Fragment() {
 
     private lateinit var web_url: String
 
+    //웹뷰 args
+    private val args by navArgs<WebViewFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +30,16 @@ class WebViewFragment : Fragment() {
     ): View? {
         _binding = FragmentWebViewBinding.inflate(inflater, container, false)
 
+        //webviewFragment args
+        val book = args.book
+        
         binding.bookWebview.apply {
             webViewClient = WebViewClient()
             settings.javaScriptEnabled = true
+            loadUrl(book.url) //전달받은 args 아이템의 url 페이지 load
         }
 
+        /* bundle로 데이터전달
         setFragmentResultListener("requestKey") { requestKey, bundle ->
             if (bundle.getString("bundleKey") != null) {
                 web_url = bundle.getString("bundleKey").toString()
@@ -43,11 +49,28 @@ class WebViewFragment : Fragment() {
                 binding.bookWebview.loadUrl(web_url)
             }
         }
-
-
+        */
 
         return binding.root
     }
+
+    //lifecycle 따라서 오버라이딩
+
+    override fun onPause() {
+        binding.bookWebview.onPause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        binding.bookWebview.onResume()
+        super.onResume()
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
 /*
     override fun onStop() { //bottom nav 전환 시
         super.onStop()
@@ -57,10 +80,4 @@ class WebViewFragment : Fragment() {
         navController.navigate(R.id.action_webViewFragment_to_searchFragment)
     }*/
 
-    override fun onDestroyView() {
-        _binding = null
-
-
-        super.onDestroyView()
-    }
 }

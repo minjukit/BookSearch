@@ -5,14 +5,12 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.booksearch.R
 import com.example.booksearch.databinding.FragmentSearchBinding
 import com.example.booksearch.ui.adapter.BookSearchAdapter
 import com.example.booksearch.ui.viewModel.BookSearchViewModel
@@ -57,7 +55,7 @@ class SearchFragment : Fragment() {
             bsAdapter.submitList(books)
         })
 
-
+/*
         bsAdapter.itemClick = object : BookSearchAdapter.ItemClick {
             override fun onClick(view: View, position: Int, url: String) {
 
@@ -75,7 +73,9 @@ class SearchFragment : Fragment() {
 
 
             }
-        }
+        }*/
+
+
     }
 
     private fun setUpRecyclerView() {
@@ -87,6 +87,11 @@ class SearchFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             this.adapter = bsAdapter
+        }
+        //BookSearchAdapter에서 구현한 setOnItemClickListener
+        bsAdapter.setOnItemClickListener { //리스너 액션 이동
+            val action = SearchFragmentDirections.actionSearchFragmentToWebViewFragment(it)
+            findNavController().navigate(action)
         }
 
     }

@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.booksearch.R
+import com.example.booksearch.data.db.BookDatabase
 import com.example.booksearch.data.repository.BookSearchRepositoryImpl
 import com.example.booksearch.databinding.ActivityMainBinding
 import com.example.booksearch.ui.viewModel.BSViewModelProviderFactory
@@ -31,8 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         setUpJetpackNavigation()
 
+        //db
+        val db = BookDatabase.getInstance(this)
         //viewModel
-        val bookRepostoryImpl = BookSearchRepositoryImpl()
+        val bookRepostoryImpl = BookSearchRepositoryImpl(db)
         //Impl & owner 지정
         val factory = BSViewModelProviderFactory(bookRepostoryImpl, this)
         //ViewModel프로바이저에게 owner와 factory지정

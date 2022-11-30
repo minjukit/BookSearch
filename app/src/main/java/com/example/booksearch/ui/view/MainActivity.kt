@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.booksearch.R
 import com.example.booksearch.data.repository.BookSearchRepositoryImpl
@@ -53,6 +54,13 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.apply {
             setupWithNavController(navController) //id 자동 매핑해줌 -> 프래그먼트전환해줌
             isItemHorizontalTranslationEnabled
+            // navigation bottombar 웹뷰 이동 시 bottom icon 오류 -> NavigationUI.onNavDestinationSelected 로 아이템 지정해주기
+            setOnItemSelectedListener { item ->
+                NavigationUI.onNavDestinationSelected(item, navController)
+                //아예 웹뷰에서 나가서 searchfragment 보여주고 싶다면 pop
+                //navController.popBackStack(item.itemId, inclusive = false)
+                true
+            }
         }
         /*
         appBarConfig = AppBarConfiguration(

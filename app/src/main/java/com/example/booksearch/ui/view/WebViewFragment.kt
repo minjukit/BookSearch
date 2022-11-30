@@ -46,7 +46,7 @@ class WebViewFragment : Fragment() {
         binding.fabBookmark.setOnClickListener {
             //뷰모델에 현재 book을 북마크저장
             bookSearchViewModel.insertBook(book)
-            Snackbar.make(it, "북마크 저장 완료", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(it, "[" + book.title + "] 북마크 저장", Snackbar.LENGTH_SHORT).show()
         }
 
         /* bundle로 데이터전달

@@ -8,12 +8,15 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.booksearch.databinding.FragmentWebViewBinding
+import com.example.booksearch.ui.viewModel.BookSearchViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class WebViewFragment : Fragment() {
     private var _binding: FragmentWebViewBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var web_url: String
+    private lateinit var bookSearchViewModel: BookSearchViewModel
 
     //웹뷰 args
     private val args by navArgs<WebViewFragmentArgs>()
@@ -32,24 +35,31 @@ class WebViewFragment : Fragment() {
 
         //webviewFragment args
         val book = args.book
-        
         binding.bookWebview.apply {
             webViewClient = WebViewClient()
             settings.javaScriptEnabled = true
             loadUrl(book.url) //전달받은 args 아이템의 url 페이지 load
         }
+        //main의 뷰모델
+        bookSearchViewModel = (activity as MainActivity).bookViewModel
+        //fab click event
+        binding.fabBookmark.setOnClickListener {
+            //뷰모델에 현재 book을 북마크저장
+            bookSearchViewModel.insertBook(book)
+            Snackbar.make(it, "북마크 저장 완료", Snackbar.LENGTH_SHORT).show()
+        }
 
         /* bundle로 데이터전달
-        setFragmentResultListener("requestKey") { requestKey, bundle ->
-            if (bundle.getString("bundleKey") != null) {
-                web_url = bundle.getString("bundleKey").toString()
-                Log.d("urltest", web_url)
-                binding.bookWebview.loadUrl(web_url)
-            } else {
-                binding.bookWebview.loadUrl(web_url)
-            }
-        }
-        */
+         setFragmentResultListener("requestKey") { requestKey, bundle ->
+             if (bundle.getString("bundleKey") != null) {
+                 web_url = bundle.getString("bundleKey").toString()
+                 Log.d("urltest", web_url)
+                 binding.bookWebview.loadUrl(web_url)
+             } else {
+                 binding.bookWebview.loadUrl(web_url)
+             }
+         }
+         */
 
         return binding.root
     }

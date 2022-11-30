@@ -1,7 +1,6 @@
 package com.example.booksearch.data.db
 
 import androidx.room.TypeConverter
-import com.example.booksearch.data.model.Book
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -18,6 +17,6 @@ class OrmConverter {
     fun fromList(value: List<String>) = Json.encodeToString(value)
 
     @TypeConverter
-    fun toList(value: String) = Json.decodeFromString<List<Book>>(value)
+    fun toList(value: String) = Json.decodeFromString<List<String>>(value)
 
 }

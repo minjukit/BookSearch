@@ -5,6 +5,7 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-parcelize'
+
 }
 
 
@@ -103,4 +104,6 @@ dependencies {
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")
 
+    // serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
 }

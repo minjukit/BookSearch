@@ -9,6 +9,7 @@ Daum 책 검색 API를 이용한 책 검색 애플리케이션
 - ViewModel
 - Navigation
 - Retrofit2
+- Room (DAO, TypeConverter)
 - Glide
 - RecyclerView
 - DTO
@@ -17,6 +18,7 @@ Daum 책 검색 API를 이용한 책 검색 애플리케이션
 - coroutine
 - Livedata
 - ViewBinding
+
 
 <br>
 

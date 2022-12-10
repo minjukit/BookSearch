@@ -1,8 +1,8 @@
 package com.example.booksearch.data.repository
 
-import androidx.lifecycle.LiveData
 import com.example.booksearch.data.model.Book
 import com.example.booksearch.data.model.BookSearchResponse
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 interface BookSearchRepository {
@@ -17,5 +17,5 @@ interface BookSearchRepository {
     // Room
     suspend fun insertBooks(book: Book)
     suspend fun deleteBooks(book: Book)
-    fun getFavoriteBooks(): LiveData<List<Book>>
+    fun getFavoriteBooks(): Flow<List<Book>>
 }

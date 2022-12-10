@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -14,6 +17,8 @@ import com.example.booksearch.databinding.FragmentFavoriteBinding
 import com.example.booksearch.ui.adapter.BookSearchAdapter
 import com.example.booksearch.ui.viewModel.BookSearchViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 class FavoriteFragment : Fragment() {
@@ -44,9 +49,29 @@ class FavoriteFragment : Fragment() {
         bsViewModel = (activity as MainActivity).bookViewModel
         setUpRecyclerView()
         setUptouchHelper(view)
-        //뷰모델의 북마크변수를 옵저빙
+        /*
+        //Livedata 사용 시 뷰모델의 북마크변수를 옵저빙
         bsViewModel.bookmarkBook.observe(viewLifecycleOwner) {
             bsAdapter.submitList(it)
+        }
+         */
+        //Flow
+        /*
+        lifecycleScope.launch {
+            bsViewModel.bookmarkBook.collectLatest {
+                bsAdapter.submitList(it) //Flow를 이용하여 마지막 data를 업데이트
+            }
+        }
+         */
+
+        // StateFlow : favoriteFragment의 lifecycle과 동기화
+        viewLifecycleOwner.lifecycleScope.launch {
+            //repeatOnLifecycle : Activity가 포그라운드에 있을 때 한정
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                bsViewModel.bookmarkBook.collectLatest {
+                    bsAdapter.submitList(it)
+                }
+            }
         }
 
     }

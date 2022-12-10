@@ -5,7 +5,11 @@ import com.example.booksearch.data.model.Book
 import com.example.booksearch.data.model.BookSearchResponse
 import com.example.booksearch.data.repository.BookSearchRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+
 
 class BookSearchViewModel(
     private val bookSearchRepository: BookSearchRepository,
@@ -38,7 +42,14 @@ class BookSearchViewModel(
         bookSearchRepository.deleteBooks(book)
     }
 
-    val bookmarkBook: LiveData<List<Book>> = bookSearchRepository.getFavoriteBooks()
+    //val bookmarkBook = Flow<List<Book>> = bookSearchRepository.getFavoriteBooks()
+
+    val bookmarkBook: StateFlow<List<Book>> =
+        bookSearchRepository.getFavoriteBooks().stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            listOf()
+        )
 
 
     //savedState

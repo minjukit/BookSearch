@@ -73,6 +73,12 @@ class FavoriteFragment : Fragment() {
                 }
             }
         }
+        //확장함수 만들어서 사용하기
+        /*
+        collectLatestStateFlow(bsViewModel.bookmarkBook){
+            bsAdapter.submitList(it)
+        }
+         */
 
     }
 

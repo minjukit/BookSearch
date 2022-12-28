@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
-        android:layout_width="0dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
 
@@ -26,14 +26,14 @@
 
         <RadioButton
             android:id="@+id/rb_accuracy"
-            android:width="wrap_content"
-            android:height="wrap_content"
+            android:width="45dp"
+            android:height="30dp"
             android:text="Accuracy" />
 
         <RadioButton
             android:id="@+id/rb_latest"
-            android:width="wrap_content"
-            android:height="wrap_content"
+            android:width="45dp"
+            android:height="30dp"
             android:text="Latest" />
 
 

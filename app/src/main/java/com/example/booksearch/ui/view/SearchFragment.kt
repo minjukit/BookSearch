@@ -2,15 +2,20 @@ package com.example.booksearch.ui.view
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.booksearch.R
 import com.example.booksearch.databinding.FragmentSearchBinding
 import com.example.booksearch.ui.adapter.BookSearchAdapter
 import com.example.booksearch.ui.viewModel.BookSearchViewModel
@@ -23,7 +28,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var bsViewModel: BookSearchViewModel
     private lateinit var bsAdapter: BookSearchAdapter
-
+    private lateinit var spinner: Spinner
     private var webFrag: Fragment? = null
 
 
@@ -75,8 +80,51 @@ class SearchFragment : Fragment() {
             }
         }*/
 
+        setUpRecyclerView()
+
+        // AdapterView.OnItemSelectedListener override
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
+                when (pos) {
+                    0 -> {
+                        Log.d("filter", "0" + p3.toString())
+                    }
+                    1 -> {
+                        Log.d("filter", "1" + p3.toString())
+                    }
+                    2 -> {
+                        Log.d("filter", "2" + p3.toString())
+                    }
+                    3 -> {
+                        Log.d("filter", "3" + p3.toString())
+                    }
+                    else -> {
+
+                    }
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
 
     }
+
+    private fun setUpSpinner() {
+        //spinner 어댑터 설정 - array 연결
+        spinner = binding.spinner
+        ArrayAdapter.createFromResource(
+            requireActivity(),
+            R.array.filter_array,
+            android.R.layout.simple_spinner_item
+        )
+            .also { arrayAdapter ->
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner.adapter = arrayAdapter
+            }
+    }
+
 
     private fun setUpRecyclerView() {
         bsAdapter = BookSearchAdapter()
@@ -123,5 +171,7 @@ class SearchFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
+
 }
 

@@ -32,7 +32,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/conlayout"
         android:layout_width="0dp"
-        android:layout_height="28dp"
+        android:layout_height="32dp"
         android:background="#F3FAFF"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +59,16 @@
             android:src="@drawable/ic_drop_down_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_filter"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

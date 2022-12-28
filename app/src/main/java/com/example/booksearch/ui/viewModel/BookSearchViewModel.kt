@@ -7,8 +7,10 @@ import com.example.booksearch.data.repository.BookSearchRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class BookSearchViewModel(
@@ -25,7 +27,8 @@ class BookSearchViewModel(
     fun searchBooks(query: String) = viewModelScope.launch(Dispatchers.IO) {
         //정확도순 sort 1페이지에 15개
         //추후 - 필터카테고리 만들것
-        val response = bookSearchRepository.searchBooks(query, "accuracy", 1, 15)
+        //val response = bookSearchRepository.searchBooks(query, "accuracy", 1, 15)
+        val response = bookSearchRepository.searchBooks(query, getSortMode(), 1, 15)
         if (response.isSuccessful) {
             response.body()?.let {
                 _searchResult.postValue(it)
@@ -66,4 +69,14 @@ class BookSearchViewModel(
     companion object {
         private const val SAVE_STATE_KEY = "query";
     }
+
+    //DataStore
+    fun saveSortMode(value: String) = viewModelScope.launch(Dispatchers.IO) {
+        bookSearchRepository.saveSortMode(value)
+    }
+
+    suspend fun getSortMode() = withContext(Dispatchers.IO) {
+        bookSearchRepository.getSortMode().first()
+    }
+
 }

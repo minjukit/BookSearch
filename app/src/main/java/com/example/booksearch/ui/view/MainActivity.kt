@@ -1,7 +1,9 @@
 package com.example.booksearch.ui.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -14,6 +16,7 @@ import com.example.booksearch.data.repository.BookSearchRepositoryImpl
 import com.example.booksearch.databinding.ActivityMainBinding
 import com.example.booksearch.ui.viewModel.BSViewModelProviderFactory
 import com.example.booksearch.ui.viewModel.BookSearchViewModel
+import com.example.booksearch.util.Constants.DATASTORE_NAME
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var bookViewModel: BookSearchViewModel
     private lateinit var appBarConfig: AppBarConfiguration
 
+    //datastore singleton 객체
+    private val Context.datastore by preferencesDataStore(DATASTORE_NAME)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         //db
         val db = BookDatabase.getInstance(this)
         //viewModel
-        val bookRepostoryImpl = BookSearchRepositoryImpl(db)
+        
+        val bookRepostoryImpl = BookSearchRepositoryImpl(db, datastore)
         //Impl & owner 지정
         val factory = BSViewModelProviderFactory(bookRepostoryImpl, this)
         //ViewModel프로바이저에게 owner와 factory지정

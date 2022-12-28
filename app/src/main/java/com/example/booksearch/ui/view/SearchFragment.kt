@@ -2,12 +2,9 @@ package com.example.booksearch.ui.view
 
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -15,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.booksearch.R
 import com.example.booksearch.databinding.FragmentSearchBinding
 import com.example.booksearch.ui.adapter.BookSearchAdapter
 import com.example.booksearch.ui.viewModel.BookSearchViewModel
@@ -83,6 +79,8 @@ class SearchFragment : Fragment() {
         setUpRecyclerView()
 
         // AdapterView.OnItemSelectedListener override
+
+        /* 추후 스피너로 변경할 것
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
                 when (pos) {
@@ -108,9 +106,10 @@ class SearchFragment : Fragment() {
 
             }
         }
-
+*/
     }
 
+    /*추후 스피너로 변경할 것
     private fun setUpSpinner() {
         //spinner 어댑터 설정 - array 연결
         spinner = binding.spinner
@@ -125,6 +124,8 @@ class SearchFragment : Fragment() {
             }
     }
 
+
+     */
 
     private fun setUpRecyclerView() {
         bsAdapter = BookSearchAdapter()

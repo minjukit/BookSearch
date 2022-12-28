@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
+        android:id="@+id/rg_sort"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

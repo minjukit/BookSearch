@@ -65,7 +65,7 @@ class BookSearchRepositoryImpl(
                 throw exception
             }
         }.map {
-            it[SORT_MODE] ?: Sort.ACCURACY.by
+            it[SORT_MODE] ?: Sort.ACCURACY.value
         }
     }
 

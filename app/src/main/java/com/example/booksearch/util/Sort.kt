@@ -1,6 +1,6 @@
 package com.example.booksearch.util
 
-enum class Sort(val by: String) {
+enum class Sort(val value: String) {
     ACCURACY("accuracy"),
     LATEST("latest")
 }

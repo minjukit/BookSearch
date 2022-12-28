@@ -5,12 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.example.booksearch.R
 import com.example.booksearch.databinding.FragmentSettingsBinding
+import com.example.booksearch.ui.viewModel.BookSearchViewModel
+import com.example.booksearch.util.Sort
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var bsViewModel: BookSearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +34,34 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
 
+        bsViewModel = (activity as MainActivity).bookViewModel
+        saveSettings()
+        loadSettings()
     }
+
+    private fun saveSettings() { // radioButton check된 모드를 뷰모델에 저장
+        binding.rgSort.setOnCheckedChangeListener { radioGroup, i ->
+            val value = when (i) {
+                R.id.rb_accuracy -> Sort.ACCURACY.value
+                R.id.rb_latest -> Sort.LATEST.value
+                else -> return@setOnCheckedChangeListener
+            }
+            bsViewModel.saveSortMode(value)
+        }
+    }
+
+    private fun loadSettings() { //뷰모델에서 불러온 값을 확인 후 radioButton에 체크
+        lifecycleScope.launch {
+            val buttonId = when (bsViewModel.getSortMode()) {
+                Sort.ACCURACY.value -> R.id.rb_accuracy
+                Sort.LATEST.value -> R.id.rb_latest
+                else -> return@launch
+            }
+            binding.rgSort.check(buttonId)
+        }
+    }
+
 
     override fun onDestroyView() {
         _binding = null

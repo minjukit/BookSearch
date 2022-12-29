@@ -5,12 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import com.example.booksearch.R
 import com.example.booksearch.databinding.FragmentSettingsBinding
 import com.example.booksearch.ui.viewModel.BookSearchViewModel
-import com.example.booksearch.util.Sort
-import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
@@ -36,10 +32,10 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bsViewModel = (activity as MainActivity).bookViewModel
-        saveSettings()
-        loadSettings()
+        //saveSettings()
+        //loadSettings()
     }
-
+/*
     private fun saveSettings() { // radioButton check된 모드를 뷰모델에 저장
         binding.rgSort.setOnCheckedChangeListener { radioGroup, i ->
             val value = when (i) {
@@ -62,6 +58,8 @@ class SettingsFragment : Fragment() {
         }
     }
 
+
+ */
 
     override fun onDestroyView() {
         _binding = null

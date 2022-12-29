@@ -56,6 +56,7 @@ class BookSearchRepositoryImpl(
         }
     }
 
+
     override suspend fun getSortMode(): Flow<String> {
         return dataStore.data.catch { exception ->
             if (exception is IOException) {

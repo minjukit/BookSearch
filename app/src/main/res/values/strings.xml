@@ -8,9 +8,9 @@
     <string name="searchHint">검색할 책의 제목을 입력하세요</string>
     <string-array name="filter_array">
         <item>정확도순</item>
-        <item>발간일순</item>
-        <item>가격낮은순</item>
-        <item>가격높은순</item>
+        <item>최신순</item>
+        <item>가격 낮은순</item>
+        <item>가격 높은순</item>
         <item>가나다순</item>
     </string-array>
 </resources>
